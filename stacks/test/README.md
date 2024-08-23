@@ -1,6 +1,6 @@
 # Zagreus DMS Infrastructure Testing
 
-This README outlines the testing procedures for DMS Infrastructure using the AWS Cloud Development Kit (CDK) Infrastructure as Code (IaC) approach. The testing process involves utilizing CDK Assertions and Pytest to ensure the integrity and reliability of the infrastructure.
+This README outlines the testing procedures for AWS Cloud Development Kit (CDK) Infrastructure as Code (IaC) approach. The testing process involves utilizing CDK Assertions and Pytest to ensure the integrity and reliability of the infrastructure.
 
 ## Testing Methodology
 The testing methodology involves the following steps:
