@@ -10,7 +10,7 @@ class EBSStorage(ABC):
         pass
 
 
-class ProductEbs(EBSStorage):
+class GeneralPurposeEbs(EBSStorage):
     def __init__(self, value: str):
         super().__init__()
         print(value)
@@ -68,7 +68,7 @@ class AbstractFactory(ABC):
 class EbsFactory(AbstractFactory):
     def create_ebs(self, volume_type: str) -> EBSStorage:
         if volume_type == "gp2":
-            return ProductEbs("General Purpose EBS Created.")
+            return GeneralPurposeEbs("General Purpose EBS Created.")
         elif volume_type == "io1":
             return IopsEbs("Provisioned IOPS EBS Created.")
         elif volume_type == "sc1":
