@@ -3,13 +3,23 @@ from aws_cdk import aws_dms as dms
 from constructs import Construct
 from abc import ABC, abstractmethod
 
+
 class DMSTask(ABC):
     @abstractmethod
     def create_task(self, scope: Construct) -> dms.CfnReplicationTask:
         pass
 
+
 class CDCTask(DMSTask):
-    def __init__(self, shared_cdc_start_position, replication_instance_arn, source_endpoint_arn, target_endpoint_arn, table_mappings, task_settings):
+    def __init__(
+        self,
+        shared_cdc_start_position,
+        replication_instance_arn,
+        source_endpoint_arn,
+        target_endpoint_arn,
+        table_mappings,
+        task_settings,
+    ):
         self.shared_cdc_start_position = shared_cdc_start_position
         self.replication_instance_arn = replication_instance_arn
         self.source_endpoint_arn = source_endpoint_arn
@@ -30,8 +40,16 @@ class CDCTask(DMSTask):
             replication_task_settings=self.task_settings,
         )
 
+
 class FullLoadTask(DMSTask):
-    def __init__(self, replication_instance_arn, source_endpoint_arn, target_endpoint_arn, table_mappings, task_settings):
+    def __init__(
+        self,
+        replication_instance_arn,
+        source_endpoint_arn,
+        target_endpoint_arn,
+        table_mappings,
+        task_settings,
+    ):
         self.replication_instance_arn = replication_instance_arn
         self.source_endpoint_arn = source_endpoint_arn
         self.target_endpoint_arn = target_endpoint_arn
@@ -50,8 +68,16 @@ class FullLoadTask(DMSTask):
             replication_task_settings=self.task_settings,
         )
 
+
 class FullLoadAndCDCTask(DMSTask):
-    def __init__(self, replication_instance_arn, source_endpoint_arn, target_endpoint_arn, table_mappings, task_settings):
+    def __init__(
+        self,
+        replication_instance_arn,
+        source_endpoint_arn,
+        target_endpoint_arn,
+        table_mappings,
+        task_settings,
+    ):
         self.replication_instance_arn = replication_instance_arn
         self.source_endpoint_arn = source_endpoint_arn
         self.target_endpoint_arn = target_endpoint_arn
@@ -70,10 +96,12 @@ class FullLoadAndCDCTask(DMSTask):
             replication_task_settings=self.task_settings,
         )
 
+
 class DMSTaskFactory(ABC):
     @abstractmethod
     def create_task(self, task_type: str) -> DMSTask:
         pass
+
 
 class ConcreteDMSTaskFactory(DMSTaskFactory):
     def create_task(self, task_type: str, **kwargs) -> DMSTask:
@@ -85,4 +113,3 @@ class ConcreteDMSTaskFactory(DMSTaskFactory):
             return FullLoadAndCDCTask(**kwargs)
         else:
             raise ValueError(f"Unknown task type: {task_type}")
-

@@ -18,7 +18,7 @@ env = Environment(account=account, region=region)
 
 vpc_stack = CdkVpcStack(app, "dev-vpc-stack")
 ebs_stack = CdkEbsStack(app, f"{deploy_environment}-ebs", vpc=vpc_stack.vpc)
-dms_stack = CdkDmsStack(app, f"{deploy_environment}-dms")
+#dms_stack = CdkDmsStack(app, f"{deploy_environment}-dms")
 
 # add tags to the entire app (all resources created by this app)
 Tags.of(app).add("Application", "Dev")
