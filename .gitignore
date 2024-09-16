@@ -3,3 +3,4 @@ cdk.out/
 *.pyc
 cdk.context.json
 migrations/*
+.idea/*
